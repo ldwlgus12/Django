@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'catch' %}">
+        <input type="text" name="message" class="w-25 pb-1 mt-3 ms-3">
+        <button type="submit" class="btn btn-outline-primary">Throw</button>
+    </form>
+{% endblock content %}

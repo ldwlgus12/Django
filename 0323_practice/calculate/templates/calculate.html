@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load mathfilters %}
+
+{% block content %}
+<h3 class="ms-4 mt-4">더하기 : {{ num1|add:num2 }}</h3>
+<h3 class="ms-4 mt-4">빼기 : {{ num1|sub:num2 }}</h3>
+<h3 class="ms-4 mt-4">곱하기 : {{ num1|mul:num2 }}</h3>
+<h3 class="ms-4 mt-4">몫 : {{ num1|intdiv:num2 }}</h3>
+{% endblock content %}
+
