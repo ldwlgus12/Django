@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Detail</h1>
+    <h1>지금은 {{ num }}번 글 입니다.</h1>
+    <a href="{% url 'index' %}">두번째 페이지</a>
+
+    {% comment %} 아래 코드 넣으면 현재 입력된 이름이 없기에 당연히 오류 발생 {% endcomment %}
+    {% comment %} <a href="{% url 'articles:detail_name' %}">이름</a> {% endcomment %}
+{% endblock content %}
