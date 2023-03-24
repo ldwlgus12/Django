@@ -285,3 +285,4 @@ admin.site.register(Article) # 추가
 2. db.sqlite3 파일 삭제
 
 - `migrations 폴더는 지우지 않도록 주의!!`
+
