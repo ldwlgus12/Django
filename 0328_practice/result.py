@@ -49,6 +49,10 @@ b = len(Newspaper.objects.filter(journalist__contains='Arianna Walls'))
 c = len(Newspaper.objects.filter(journalist__contains='Carl Short'))
 a+b+c
 
+newspapers_count = Newspaper.objects.filter(
+    journalist__in=['Britney Mahoney', 'Arianna Walls', 'Carl Short']).count()
+newspapers_count
+
 # 7번
 len(Newspaper.objects.filter(created_at__gte='2000-01-01'))
 
