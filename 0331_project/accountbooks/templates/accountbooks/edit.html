@@ -1,0 +1,52 @@
+{% extends 'accountbooks/base.html' %}
+
+{% block content %}
+
+  <nav class="navbar bg-body-tertiary mb-3">
+    <div class="container-fluid ms-2">
+        <a class="navbar-brand" href="#">🖊 가계부 수정</a>
+    </div>
+  </nav>
+
+  <form class="m-4" action="{% url 'accountbooks:update' account.pk %}" method="POST">
+    {% csrf_token %}
+    <div class="flex-row">
+
+      <div style="width: 250px;">
+        <label for="note">내용</label>
+        <input type="text" class="form-control" name="note" id="note" value="{{account.note}}">
+      </div><br>
+
+      <div style="width: 250px;">
+        <label for="category">분류</label>
+        <select class="form-select" aria-label="Default select example" name="category">
+            <option selected>카테고리 선택</option>
+            <option value="생활비">생활비</option>
+            <option value="적금">적금</option>
+            <option value="식비">식비</option>
+        </select>
+      </div><br>
+
+      <div class="mt-3" style="width: 250px;">
+        <label for="amount">사용 금액</label>
+        <input type="number" class="form-control" name="amount" id="amount" value="{{account.amount}}">
+      </div><br>
+
+      <div class="mt-3" style="width: 200px;">
+        <label for="date">사용 날짜</label>
+        <input type="date" class="form-control" name="date" id="date" value="{{account.date|date:'Y-m-d'}}">
+      </div><br>
+
+      <div class="mt-3" style="width: 250px;">
+        <label for="description">메모</label>
+        <textarea name="description" class="form-control" id="description">{{account.description}}</textarea>
+      </div>
+
+      <div class="mt-3 mb-2">
+        <a href="{% url 'accountbooks:index' %}" class="btn btn-outline-dark">뒤로가기</a>
+        <button type="sumbit" class="btn btn-outline-primary">수정 완료</button>
+      </div>
+      
+    </div>
+  </form>
+{% endblock content %}

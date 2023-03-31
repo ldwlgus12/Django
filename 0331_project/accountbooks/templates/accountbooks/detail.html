@@ -1,0 +1,63 @@
+{% extends 'accountbooks/base.html' %}
+
+{% block style %}
+<style>
+    form {
+      display: inline;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+  <nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-2" href="#">📄 내역 - {{account.pk}}</a>
+    </div>
+  </nav>
+
+    <table class="table table-hover w-100">
+    <tbody>
+        <tr>
+        <th scope="row" class="text-center w-25">내용</th>
+        <td class="table-light">{{account.note}}</td>
+        </tr>
+        <tr>
+        <th scope="row" class="text-center w-25">메모</th>
+        <td class="table-warning">{{ account.description }}</td>
+        </tr>
+        <tr>
+        <th scope="row" class="text-center w-25">분류</th>
+        <td class="table-success">{{ account.category }}</td>
+        </tr>
+        <tr>
+        <th scope="row" class="text-center w-25">사용 금액</th>
+        <td class="table-danger">{{ account.amount }}</td>
+        </tr>
+        <tr>
+        <th scope="row" class="text-center w-25">사용 날짜</th>
+        <td class="table-primary">{{ account.date }}</td>
+        </tr>
+    </tbody>
+    </table>
+
+
+  <div class='d-felx col ms-2'>
+    <button type="button" class="btn btn-outline-secondary"><a href="{% url 'accountbooks:index' %}" class="text-decoration-none btn-outline-dark">뒤로가기</a></button>
+
+    <button type="button" class="btn btn-outline-primary"><a href="{% url 'accountbooks:edit' account.pk %}" class="text-decoration-none">수정</a></button>
+
+
+    <form action="{% url 'accountbooks:copy' account.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-outline-primary" value='복사'>
+    </form>
+
+
+    <form action="{% url 'accountbooks:delete' account.pk %}" method=POST>
+      {% csrf_token %}
+      <input type="submit" class="btn btn-outline-danger" value="삭제">
+    </form>
+  </div>
+{% endblock content %}

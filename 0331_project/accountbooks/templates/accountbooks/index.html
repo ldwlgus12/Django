@@ -1,0 +1,46 @@
+{% extends 'accountbooks/base.html' %}
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+
+    <nav class="navbar bg-body-tertiary mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-2" href="#">내 가계부 💸</a>
+        </div>
+    </nav>
+
+    <div>
+    {% for acount in acounts %}
+
+      <p>    
+        <a href="{% url 'accountbooks:detail' acount.pk %}" class="text-decoration-none ms-3 {% if acount.category == '생활비'%}text-primary
+        {% elif acount.category == '적금'%}text-warning
+        {% elif acount.category == '식비'%}text-danger
+        {% else %}text-dark
+        {% endif %}">
+
+        {% if acount.category == '생활비' %}
+        👕 {{ acount.pk }} - {{ acount.note }}
+
+        {% elif acount.category == '적금' %}
+        🏠 {{ acount.pk }} - {{ acount.note }}
+        
+        {% elif acount.category == '식비' %}
+        🍔 {{ acount.pk }} - {{ acount.note }}
+        
+        {% else %}
+        ❓ - 카테고리를 선택하세요
+        {% endif %}         
+        </a>
+      <p>
+
+      <hr>
+    {% endfor %}
+    </div>
+
+<button type="button" class="btn btn-outline-primary ms-3"><a href="{% url 'accountbooks:new' %}" class="text-decoration-none">가계부 작성</a></button>
+
+{% endblock content %}
