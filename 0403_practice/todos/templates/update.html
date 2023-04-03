@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>수정</h1>
+    <form action="{% url 'todos:update' todos.pk %}" method='POST'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <input type="submit" value='수정 완료'>
+    </form>
+    <br>
+
+    <a href="{% url 'todos:index' %}">처음으로</a>
+</body>
+</html>
