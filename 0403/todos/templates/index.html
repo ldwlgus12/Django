@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>할 일 전체 조회 Index</h1>
+
+    {% for todo_s in todos %}
+        <p>할 일 : 
+            <a href="{% url 'todos:detail' todo_s.pk %}">{{ todo_s.title }}</a>
+        </p>
+        <p>내용 : {{ todo_s.content }}
+        </p>
+        <hr>
+    {% endfor %}
+
+    <button>
+        <a href="{% url 'todos:new' %}">[New]</a>
+    </button>
+</body>
+</html>
