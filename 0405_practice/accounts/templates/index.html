@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>사용자 정보</h1>
+  <h3>안녕하세요, {{ user }} 님!</h3>
+  <hr>
+
+  {% if request.user.is_authenticated %}
+    <h3>username : {{ user }}</h3>
+    <h3>email : {{ user.email }}</h3>
+    <h3>first_name : {{ user.first_name }}</h3>
+    <h3>last_name : {{ user.last_name }}</h3>
+
+  <form action="{% url 'accounts:logout' %}" method='POST'>
+    {% csrf_token %}
+    <input type="submit" value='로그아웃'>
+  </form>
+  <br>
+
+  <button><a href="{% url 'accounts:update' %}">회원정보 수정</a></button>
+  <br>
+  <br>
+
+  <button><a href="{% url 'accounts:change_password' %}">비밀번호 수정</a></button>
+  <br>
+  <br>
+
+  <form action="{% url 'accounts:delete' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴">
+  </form>
+
+
+  {% else %}
+  <button><a href="{% url 'accounts:login' %}">로그인</a></button>
+  <br>
+  <br>
+
+  <button><a href="{% url 'accounts:signup' %}">회원가입</a></button>
+  {% endif %}
+
+  
+</body>
+</html>
