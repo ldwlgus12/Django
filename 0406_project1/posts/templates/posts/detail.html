@@ -1,0 +1,16 @@
+{% extends '!base.html' %}
+
+{% block content %}
+<h1>상세보기</h1>
+
+<p>글 번호: {{ post.pk }}</p>
+<p>제목: {{ post.title }}</p>
+<p>카테고리: {{ post.category }}</p>
+<p>내용: {{ post.content }}</p>
+
+<a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정하기</a>
+<form action="{% url 'posts:delete' post.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" class='btn btn-danger' value="삭제하기">
+</form>
+{% endblock content %}
