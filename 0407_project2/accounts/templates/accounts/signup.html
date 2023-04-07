@@ -1,0 +1,36 @@
+{% extends '!base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center">
+  <a href="{% url 'posts:base' %}" class="me-3 fs-4"><i class="bi bi-chevron-left"></i></a>
+  <h1>회원가입</h1>
+</div>
+<hr class="mb-4">
+
+<form action="{% url 'accounts:signup' %}" method="POST" class="form">
+  {% csrf_token %}
+  {% for field in form %}
+    {{ field.label }} {{ field }}
+  {% endfor %}
+  
+  
+  {% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    
+    {% for error in form.non_field_errors %}
+      <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+      </div><br>
+    {% endfor %}
+  {% endif %}
+  <input type="submit" class="btn btn-primary">
+</form>
+
+
+{% endblock content %}

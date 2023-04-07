@@ -1,0 +1,33 @@
+{% extends '!base.html' %}
+
+{% block content %}
+<div class="d-flex align-items-center">
+    <a href="{% url 'posts:base' %}" class="me-3 fs-4"><i class="bi bi-chevron-left"></i></a>
+    <h1>{{ post.title }}</h1>
+</div>
+<hr>
+<table class='table'>
+    <tbody>
+        <tr>
+            <th scope="row ms-2">글 번호</th>
+            <td class="col-10">{{ post.pk }}</td>
+        </tr>
+        <tr>
+            <th scope="row ms-2">카테고리</th>
+            <td>{{ post.category }}</td>
+        </tr>
+        <tr>
+            <th scope="row ms-2">내용</th>
+            <td>{{ post.content }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex gap-3">
+    <a href="{% url 'posts:update' post.pk %}" class="btn btn-primary">수정하기</a>
+    <form action="{% url 'posts:delete' post.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" class='btn btn-danger m-0' onclick="return confirm('삭제하시겠습니까?')" value="삭제하기">
+    </form>
+</div>
+{% endblock content %}

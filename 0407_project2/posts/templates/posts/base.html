@@ -1,0 +1,62 @@
+{% extends '!base.html' %}
+
+{% block style %}
+
+.hr1 {
+    border: 0;
+    height: 5px;
+    background: red;
+}
+
+.cate {
+    color: gray;
+    font-size: 12px;
+    margin-left:10px;
+}
+
+tbody > tr:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+{% endblock style %}
+
+{% block content %}
+
+<h1>{{ subject }}</h1>
+<hr class="mb-3 hr1">
+
+{% comment %}
+{% for post in posts %}
+<div class="d-flex justify-content-between align-items-center my-4">
+
+  <a href="{% url 'posts:detail' post.pk %}"><p class="m-0">{{ post.pk }} - {{ post.title }} <span class="cate">카테고리 - {{ post.category }}</span></p></a>
+
+  <span class="created_at">{{ post.created_at|date:"Y-m-d" }}</span>
+</div>
+<hr>
+{% endfor %}
+{% endcomment %}
+
+<table class="table table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">카테고리</th>
+      <th scope="col">제목</th>
+      <th scope="col">작성일</th>
+    </tr>
+  </thead>
+  <tbody class="">
+    {% for post in posts %}
+    <tr></tr>
+      <td scope="row" style="width: 8%">{{ post.pk }}</td>
+      <td style="width: 15%">{{ post.category }}</td>
+      <td><a href="{% url 'posts:detail' post.pk %}">{{ post.title }}</a></td>
+      <td class="text-secondary" style="width: 20%">{{ post.created_at|date:"Y-m-d" }}</td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+{% endblock content %}
