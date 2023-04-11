@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Detail</h1>
+  <p>후기 번호: {{ reviews.pk }}</p>
+  <p>후기 제목: {{ reviews.title }}</p>
+  <p>후기 내용: {{ reviews.content }}</p>
+  <p>영화 이름: {{ reviews.movie }}</p>
+
+  <a href="{% url 'reviews:update' reviews.pk %}">[UPDATE]</a>
+  <a href="{% url 'reviews:index' %}">[back]</a>
+  <br><br>
+  <form action="{% url 'reviews:delete' reviews.pk  %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
+  <hr>
+
+  <h4>댓글 목록 - {{ reviews.comment_set.count }}</h4>
+
+  <form action="{% url 'reviews:comments_create' reviews.pk %}" method='POST'>
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit">
+  </form>
+
+  <ul>
+    {% for comment in comments %}
+    <li>
+        <p>댓글 번호 - {{ comment.pk }}</p>
+        <p>댓글 내용 - {{ comment.content }}</p>
+      <form action="{% url 'reviews:comments_delete' reviews.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+    </li>
+    <hr>
+    {% endfor %}
+  </ul>
+
+</body>
+</html>
