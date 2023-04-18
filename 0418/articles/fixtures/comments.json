@@ -1,0 +1,46 @@
+[
+{
+    "model": "articles.comment",
+    "pk": 1,
+    "fields": {
+        "article": 1,
+        "user": 1,
+        "content": "asdalsdm",
+        "created_at": "2023-04-18T00:53:05.688Z",
+        "updated_at": "2023-04-18T00:53:05.688Z"
+    }
+},
+{
+    "model": "articles.comment",
+    "pk": 2,
+    "fields": {
+        "article": 1,
+        "user": 1,
+        "content": "cvcvn",
+        "created_at": "2023-04-18T00:53:09.726Z",
+        "updated_at": "2023-04-18T00:53:09.726Z"
+    }
+},
+{
+    "model": "articles.comment",
+    "pk": 3,
+    "fields": {
+        "article": 3,
+        "user": 1,
+        "content": "댓글입니다",
+        "created_at": "2023-04-18T02:29:10.336Z",
+        "updated_at": "2023-04-18T02:29:10.336Z"
+    }
+},
+{
+    "model": "articles.comment",
+    "pk": 4,
+    "fields": {
+        "article": 1,
+        "user": 2,
+        "content": "댓글33",
+        "created_at": "2023-04-18T02:29:57.232Z",
+        "updated_at": "2023-04-18T02:29:57.232Z"
+    }
+}
+]
