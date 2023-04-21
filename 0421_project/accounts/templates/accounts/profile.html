@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<style>
+  .h {
+    height: 70px;
+  }
+
+  .bottom {
+    border-bottom: 1px solid rgb(255, 193, 7);
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+  <div class='h mb-4 d-flex justify-content-center align-items-center bottom'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="rgb(102, 77, 3)" class="bi bi-person-circle me-2" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </svg>
+    <h1 class='text-warning-emphasis m-0'>Profile</h1>
+  </div>
+
+  <div class='container'>
+    <div class='container bottom d-flex'>
+      {% if person.image %}
+      <div class='col-12 col-sm-2'>
+        <img class='rounded' src="{{ person.image.url }}" alt="profile">
+      </div>
+      {% else %}
+      <div class='col-12 col-sm-2'>
+        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
+          <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+          <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+        </svg>
+      </div>
+      {% endif %}
+      <div class='col-12 col-sm-10'>
+        <h3> <strong>{{person.username}}</strong></h3>
+        {% if request.user.username != person.username %}
+        <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+          {% csrf_token %}
+          {% if request.user in person.followers.all %}
+          <input class="btn btn-outline-success" type="submit" value="unfollow">
+          {% else %}
+          <input class="btn btn-outline-success" type="submit" value="follow" {% if request.user.is_anonymous %} disabled {% endif %}>
+          {% endif %}
+        </form>
+        {% endif %}
+        <div class='m-0'>
+          <span class='me-2'>게시글 - {{ person.balance_set.count }}</span>
+          <span class='me-2'>follower - {{ person.followers.all|length }} </span>
+          <span class='me-2'>following - {{ person.followings.all|length }}</span>          
+        </div>
+        <p>
+          Email - {{person.email}}
+        </p>
+      </div>
+    </div>
+    <div class='container bottom p-3'>
+      <h4>작성 게시글</h4>
+      <ul class="list-group">
+        {% for balance in person.balance_set.all %}
+          <li type="button" onclick="window.location='{% url 'balances:detail' balance.pk %}'"  class="list-group-item list-group-item-action"> 
+            {{balance.pk}} - {{balance.title}} </li>
+        {% endfor %}
+      </ul>
+      
+    </div>
+    <div class='container bottom p-3'>
+      <h4>작성 댓글</h4>
+      <ul class="list-group">
+        {% for comment in person.comment_set.all %}
+          <li type="button" onclick="window.location='{% url 'balances:detail' comment.balance.pk %}'" class="list-group-item list-group-item-action"> 
+            {{comment.content}} </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class='container bottom p-3'>
+      <h4>좋아한 글</h4>
+      <ul class="list-group">
+        {% for like in person.like_balances.all %}
+          <li type="button"  onclick="window.location='{% url 'balances:detail' like.pk %}'" class="list-group-item list-group-item-action"> 
+            {{like.title}} </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class='container row justify-content-md-center'>
+      <a class="btn btn-outline-warning col-12 col-md-5 mt-3 mx-3" href="{% url 'accounts:update' %}">Update</a>
+      <a class="btn btn-outline-warning col-12 col-md-5 mt-3 mx-3" href="{% url 'balances:index' %}">Home</a>
+    </div>
+  </div>
+
+{% endblock content %}
